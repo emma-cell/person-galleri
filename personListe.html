@@ -26,8 +26,8 @@
 <body>
     <section id="personListe"></section>
     <template>
-        <article id=personer>
-            <h2>Navn</h2>
+        <article id=personData>
+            <h3>Navn</h3>
             <img src="" alt="">
             <p>Alder</p>
             <p>Hobby</p>
@@ -42,10 +42,28 @@
 
 
     <script>
+        const endpoint = "https://spreadsheets.google.com/feeds/list/1XWWbfWszD7f4jHqp51V_oT3pkHuR-ceEUw4YtrvK7F0/od6/public/values?alt=json";
+        let personListe = [];
+
         document.addEventListener("DOMContentLoaded", start);
 
         function start() {
+            hentData();
+        }
 
+        async function hentData() {
+            const response = await fetch(endpoint);
+            personListe = await response.json();
+            visListe();
+        }
+
+        function visListe() {
+            const liste = document.querySelector("#personListe");
+            const template = document.querySelector("template");
+
+            personListe.forEach(person => {
+
+            })
         }
 
     </script>
