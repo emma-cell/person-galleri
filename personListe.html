@@ -7,7 +7,7 @@
     <title>personListe</title>
 
     <style>
-        .container {
+        .personListe {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             grid-gap: 5px;
@@ -15,23 +15,26 @@
             margin: 0 auto;
         }
 
-        .container div {
+        .personData {
             border: 1px solid black;
             height: 100px;
         }
 
     </style>
+
 </head>
 
 <body>
     <section id="personListe"></section>
     <template>
         <article id=personData>
-            <h3>Navn</h3>
+            <h2 class="navn"></h2>
+            <p class="alder">Alder: </p>
+            <p class="hobby">Hobby: </p>
+            <p class="job">Job: </p>
+            <p class="kaeledyr">Kæledyr: </p>
+            <p class="by">By: </p>
             <img src="" alt="">
-            <p>Alder</p>
-            <p>Hobby</p>
-            <p>Job</p>
         </article>
     </template>
 
@@ -61,7 +64,18 @@
             const liste = document.querySelector("#personListe");
             const template = document.querySelector("template");
 
-            personListe.forEach(person => {
+            personListe.feed.entry.forEach(person => {
+                let klon = template.cloneNode(true).content;
+
+                klon.querySelector("h2").textContent = `${person.gsx$navn.$t} ${person.gsx$efternavn.$t}`;
+                klon.querySelector("p").textContent += `${person.gsx$alder.$t}`;
+                klon.querySelector("p + p").textContent += `${person.gsx$hobby.$t} `;
+                klon.querySelector("p + p + p").textContent += `${person.gsx$job.$t}`;
+                klon.querySelector("p + p + p + p").textContent += `${person.gsx$kaeledyr.$t}`;
+                klon.querySelector("p +p + p + p + p").textContent += `${person.gsx$by.$t}`;
+                klon.querySelector("img").src = `${person.gsx$billede.$t}`;
+
+                liste.appendChild(klon);
 
             })
         }
